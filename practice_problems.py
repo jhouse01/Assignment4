@@ -13,8 +13,19 @@ Output: False
 """
 
 def has_duplicates(product_ids):
-    # Your implementation here
-    pass
+    """
+    Using a set is ideal here because sets store only unique values and provide O(1) average‑time
+    lookup and insertion. As we iterate through the list, we check whether an element is already
+    in the set; if so, we’ve found a duplicate. This approach runs in O(n) time and uses O(n)
+    additional space.
+    """
+    seen = set()
+    for pid in product_ids:
+        if pid in seen:
+            return True
+        seen.add(pid)
+    return False
+
 
 
 """
@@ -30,16 +41,25 @@ task_queue.add_task("Code review")
 task_queue.remove_oldest_task() → "Email follow-up"
 """
 
+from collections import deque
+
 class TaskQueue:
+    """
+    A queue is the correct data structure because tasks must be processed in FIFO order.
+    Python’s deque provides O(1) insertion at the back and O(1) removal from the front,
+    making it more efficient than a list for queue operations.
+    """
     def __init__(self):
-        # Your initialization here
-        pass
+        self.queue = deque()
 
     def add_task(self, task):
-        pass
+        self.queue.append(task)  # O(1)
 
     def remove_oldest_task(self):
-        pass
+        if self.queue:
+            return self.queue.popleft()  # O(1)
+        return None
+
 
 
 """
@@ -56,11 +76,16 @@ tracker.get_unique_count() → 2
 """
 
 class UniqueTracker:
+    """
+    A set is the best choice because it automatically enforces uniqueness and supports O(1)
+    average‑time insertion and membership checks. Each call to add() inserts into the set,
+    and get_unique_count() simply returns the size of the set in O(1) time.
+    """
     def __init__(self):
-        pass
+        self.values = set()
 
     def add(self, value):
-        pass
+        self.values.add(value)  # O(1)
 
     def get_unique_count(self):
-        pass
+        return len(self.values)  # O(1)
